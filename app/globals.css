@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* Variables de diseño: colores, espaciado y radios tomados de la referencia */
+:root {
+  --color-bg: #0d0d0d;
+  --color-surface: #121212;
+  --color-surface-2: #1a1a1a;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text: #ffffff;
+  --color-muted: rgba(255, 255, 255, 0.68);
+  --color-accent: #0061fe;
+  --color-accent-hover: #0052d6;
+  --color-whatsapp: #25d366;
+
+  --radius-card: 20px;
+  --radius-button: 8px;
+  --section-y: 120px;
+  --container: 1200px;
+}
+
+@theme inline {
+  --font-display: var(--font-raleway), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container-wide {
+  width: min(100% - 48px, var(--container));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius-button);
+  padding: 18px 24px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  background: #fff;
+  color: #0d0d0d;
+  border-radius: var(--radius-button);
+  padding: 18px 24px;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+.btn-ghost:hover {
+  opacity: 0.88;
+}
+
+.card {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --section-y: 80px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

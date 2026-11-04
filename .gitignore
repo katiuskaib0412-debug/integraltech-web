@@ -1,0 +1,14 @@
+# dependencias y builds
+node_modules/
+.next/
+out/
+html-netlify/
+next-env.d.ts
+*.tsbuildinfo
+
+# entorno y sistema
+.env
+.env*.local
+.netlify/
+.DS_Store
+Thumbs.db
