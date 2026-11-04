@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Stats from "@/components/Stats";
 import Audience from "@/components/Audience";
 import Services from "@/components/Services";
 import SolarCalculator from "@/components/SolarCalculator";
@@ -23,6 +24,7 @@ export default function Home() {
       <Header />
       <main id="contenido">
         <Hero />
+        <Stats />
         <Audience />
         <Services />
         <SolarCalculator />

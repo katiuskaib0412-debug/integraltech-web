@@ -1,3 +1,9 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Reveal from "./motion/Reveal";
+
 const steps = [
   { n: "01", title: "Nos escribes", text: "Cuéntanos por WhatsApp qué necesitas y dónde. Te respondemos rápido." },
   { n: "02", title: "Inspección gratis", text: "Visitamos el lugar, medimos y definimos la solución adecuada, sin costo ni compromiso." },
@@ -6,23 +12,56 @@ const steps = [
 ];
 
 export default function Process() {
-  return (
-    <section id="proceso" aria-labelledby="process-title" className="section bg-[#0c1424]">
-      <div className="container-wide">
-        <p className="eyebrow">Cómo trabajamos</p>
-        <h2 id="process-title" className="h-display mt-4 max-w-[760px] text-4xl md:text-[52px]">
-          De tu primer mensaje a la instalación funcionando
-        </h2>
+  const ref = useRef<HTMLDivElement>(null);
+  // La línea de tiempo se dibuja según el progreso del scroll
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 60%"] });
+  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-        <ol className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {steps.map((s) => (
-            <li key={s.n} className="card p-8">
-              <span className="text-sm font-bold text-gradient">PASO {s.n}</span>
-              <h3 className="mt-4 text-2xl font-semibold">{s.title}</h3>
-              <p className="mt-3 leading-relaxed text-[var(--color-muted)]">{s.text}</p>
-            </li>
-          ))}
-        </ol>
+  return (
+    <section id="proceso" aria-labelledby="process-title" className="section">
+      <div className="container-wide">
+        <Reveal>
+          <p className="eyebrow">Cómo trabajamos</p>
+          <h2 id="process-title" className="h-display mt-4 max-w-[780px] text-4xl md:text-[56px]">
+            De tu primer mensaje a la instalación funcionando
+          </h2>
+        </Reveal>
+
+        <div ref={ref} className="relative mt-16 md:pl-0">
+          {/* Línea base y línea animada */}
+          <div aria-hidden="true" className="absolute left-[27px] top-0 h-full w-px bg-white/10 md:left-1/2" />
+          <motion.div
+            aria-hidden="true"
+            style={{ scaleY, transformOrigin: "top" }}
+            className="absolute left-[27px] top-0 h-full w-px bg-gradient-to-b from-[#0a84ff] via-[#00c6ff] to-[#8b5cf6] md:left-1/2"
+          />
+
+          <ol className="space-y-12">
+            {steps.map((s, i) => {
+              const left = i % 2 === 0;
+              return (
+                <li key={s.n} className="relative grid md:grid-cols-2 md:gap-12">
+                  {/* Nodo */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-[14px] top-6 flex h-7 w-7 items-center justify-center rounded-full bg-[#05070d] ring-2 ring-[#00c6ff] shadow-[0_0_20px_rgba(0,198,255,0.6)] md:left-1/2 md:-translate-x-1/2"
+                  >
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#00c6ff]" />
+                  </span>
+                  <div className={`pl-16 md:pl-0 ${left ? "md:col-start-1 md:pr-12 md:text-right" : "md:col-start-2 md:pl-12"}`}>
+                    <Reveal variant={left ? "left" : "up"}>
+                      <div className="card p-8">
+                        <span className="text-sm font-bold text-gradient">PASO {s.n}</span>
+                        <h3 className="mt-3 text-2xl font-semibold">{s.title}</h3>
+                        <p className="mt-3 leading-relaxed text-[var(--color-muted)]">{s.text}</p>
+                      </div>
+                    </Reveal>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       </div>
     </section>
   );

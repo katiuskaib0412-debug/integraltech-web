@@ -41,7 +41,7 @@ export default function SolarCalculator() {
   const message = `Hola IntegralTech, mi planilla de luz es de ${usd(bill)}/mes. Quiero mi cálculo solar.`;
 
   return (
-    <section id="solar" aria-labelledby="solar-title" className="section bg-[#0c1424]">
+    <section id="solar" aria-labelledby="solar-title" className="section">
       <div className="container-wide grid items-start gap-16 lg:grid-cols-2">
         <div>
           <p className="eyebrow">Calculadora de ahorro solar · Guayaquil</p>

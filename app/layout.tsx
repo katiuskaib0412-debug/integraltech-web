@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
-import { Inter, Raleway } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
+import Providers from "@/components/Providers";
+import Background from "@/components/Background";
 import "./globals.css";
 
-const raleway = Raleway({
+const space = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-raleway",
+  weight: ["500", "700"],
+  variable: "--font-space",
   display: "swap",
 });
 
@@ -15,18 +17,90 @@ const inter = Inter({
   display: "swap",
 });
 
+const SITE_URL = "https://integraltech.com.ec";
+const TITLE = "IntegralTech | Seguridad, energía y redes en Guayaquil";
+const DESCRIPTION =
+  "Cámaras, alarmas, paneles solares, domótica, electricidad, cableado estructurado y soporte de computadoras para casas, negocios, urbanizaciones y edificios en Guayaquil y Samborondón. Inspección gratis.";
+
 export const metadata: Metadata = {
-  title: "INTEGRALTECH | Tecnología integral en Guayaquil",
-  description:
-    "Venta de equipos, telecomunicaciones, sistemas TI, seguridad electrónica y reparación de computadoras en Guayaquil, Ecuador.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: TITLE, template: "%s | IntegralTech" },
+  description: DESCRIPTION,
+  keywords: [
+    "cámaras de seguridad Guayaquil",
+    "alarmas Guayaquil",
+    "paneles solares Guayaquil",
+    "domótica Ecuador",
+    "cableado estructurado Guayaquil",
+    "soporte computadoras Guayaquil",
+    "IntegralTech",
+  ],
+  applicationName: "IntegralTech",
+  authors: [{ name: "INTEGRALTECH S.A.S." }],
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    locale: "es_EC",
+    url: SITE_URL,
+    siteName: "IntegralTech",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [{ url: "/images/solar-techo.jpg", width: 1400, height: 933, alt: "Paneles solares en un techo" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/images/solar-techo.jpg"],
+  },
+  icons: { icon: "/logo.png", apple: "/logo.png" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export const viewport: Viewport = {
+  themeColor: "#05070d",
+  width: "device-width",
+  initialScale: 1,
+};
+
+// Datos estructurados (SEO local) para buscadores.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "IntegralTech",
+  legalName: "INTEGRALTECH S.A.S.",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
+  image: `${SITE_URL}/images/solar-techo.jpg`,
+  description: DESCRIPTION,
+  telephone: "+593987730345",
+  address: { "@type": "PostalAddress", addressLocality: "Guayaquil", addressRegion: "Guayas", addressCountry: "EC" },
+  areaServed: ["Guayaquil", "Samborondón", "Durán", "Daule"],
+  makesOffer: [
+    "Cámaras de seguridad",
+    "Alarmas, cercos y accesos",
+    "Paneles solares",
+    "Domótica",
+    "Instalaciones eléctricas",
+    "Redes y cableado estructurado",
+    "Reparación de computadoras e impresoras",
+    "Mantenimiento y soporte",
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-EC" className={`${raleway.variable} ${inter.variable}`}>
-      <body>{children}</body>
+    <html lang="es-EC" className={`${space.variable} ${inter.variable}`}>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <Providers>
+          <Background />
+          <div className="relative z-10">{children}</div>
+        </Providers>
+      </body>
     </html>
   );
 }
