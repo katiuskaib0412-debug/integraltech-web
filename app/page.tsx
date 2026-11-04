@@ -1,12 +1,12 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
+import Audience from "@/components/Audience";
 import Services from "@/components/Services";
-import Reasons from "@/components/Reasons";
-import Stats from "@/components/Stats";
-import Testimonials from "@/components/Testimonials";
-import Blog from "@/components/Blog";
+import SolarCalculator from "@/components/SolarCalculator";
+import Works from "@/components/Works";
+import Process from "@/components/Process";
 import Contact from "@/components/Contact";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ChatBot from "@/components/ChatBot";
@@ -23,13 +23,13 @@ export default function Home() {
       <Header />
       <main id="contenido">
         <Hero />
-        <About />
+        <Audience />
         <Services />
-        <Reasons />
-        <Stats />
-        <Testimonials />
-        <Blog />
+        <SolarCalculator />
+        <Works />
+        <Process />
         <Contact />
+        <FAQ />
       </main>
       <Footer />
       <WhatsAppButton />

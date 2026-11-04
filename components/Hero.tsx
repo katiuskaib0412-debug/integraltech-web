@@ -1,65 +1,71 @@
+import Image from "next/image";
 import { whatsappLink } from "@/lib/site";
+
+const points = [
+  "Trabajos pequeños y proyectos de gran escala, con el mismo cuidado",
+  "Instalación impecable: cableado ordenado, limpieza y pruebas contigo",
+  "Un solo proveedor para todo, con factura y soporte después de instalar",
+];
 
 export default function Hero() {
   return (
-    <section
-      id="inicio"
-      aria-labelledby="hero-title"
-      className="relative flex min-h-[915px] items-center overflow-hidden pt-[104px] md:min-h-[915px]"
-    >
-      {/* Fondo: placeholder de imagen de equipos/redes con overlay oscuro (reemplazar por foto propia) */}
-      <div
-        role="img"
-        aria-label="Imagen de referencia: equipos y redes de tecnología (reemplazar por fotografía propia)"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_70%_40%,#1d3a6e_0%,#0d0d0d_60%)]"
-      >
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:48px_48px]"
-        />
-      </div>
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/80 to-[#0d0d0d]/40" />
+    <section aria-labelledby="hero-title" className="relative flex min-h-[860px] items-center overflow-hidden pt-[80px]">
+      <Image
+        src="/images/hero-paneles-solares.webp"
+        alt="Técnicos de IntegralTech instalando paneles solares en el techo de una casa"
+        fill
+        priority
+        sizes="100vw"
+        className="-z-20 object-cover object-[center_30%]"
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0a0f1a] via-[#0a0f1a]/85 to-[#0a0f1a]/35" />
 
-      <div className="container-wide grid items-center gap-12 lg:grid-cols-[1.25fr_1fr]">
-        <div className="max-w-[760px]">
-          <p className="mb-6 text-sm font-semibold uppercase tracking-[0.18em] text-[#4fa3ff]">
-            Guayaquil, Ecuador
-          </p>
-          <h1 id="hero-title" className="h-display text-5xl md:text-[72px]">
-            Tecnología integral para hogares y empresas
+      <div className="container-wide grid gap-12 py-20 lg:grid-cols-[1.2fr_1fr]">
+        <div className="max-w-[720px]">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="rounded-full bg-[#00c6ff] px-3 py-1 text-xs font-bold tracking-wider text-[#0a0f1a]">GRATIS</span>
+            <span className="text-sm text-white/80">Inspección técnica a domicilio y sin compromiso</span>
+          </div>
+
+          <h1 id="hero-title" className="h-display mt-6 text-5xl md:text-[64px]">
+            Seguridad, energía y redes instaladas{" "}
+            <em className="text-gradient font-bold">por un solo equipo</em>
           </h1>
-          <p className="mt-8 max-w-[600px] text-lg leading-relaxed text-[var(--color-muted)] md:text-[20px]">
-            Equipos, soporte técnico, redes y seguridad electrónica con atención
-            personalizada para que tu tecnología funcione siempre.
+
+          <p className="mt-6 max-w-[620px] text-lg leading-relaxed text-[var(--color-muted)]">
+            Cámaras, alarmas, paneles solares, domótica, electricidad, cableado estructurado y soporte de computadoras.
+            Para tu casa, tu negocio, tu urbanización o tu edificio en Guayaquil y Samborondón.
           </p>
 
-          <div className="mt-12 flex flex-wrap gap-4">
-            <a href="#contacto" className="btn-primary focus-ring">
-              Solicitar cotización
-            </a>
-            <a href="#servicios" className="btn-ghost focus-ring">
-              Ver servicios
-            </a>
-            <a
-              href={whatsappLink("Hola INTEGRALTECH, necesito asesoría.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="focus-ring inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-[18px] font-semibold text-white transition-colors hover:bg-white/10"
-            >
-              WhatsApp
-            </a>
+          <ul className="mt-8 space-y-3">
+            {points.map((p) => (
+              <li key={p} className="flex gap-3 text-[15px] text-white/85">
+                <span aria-hidden="true" className="mt-1 text-[#00c6ff]">✓</span>
+                {p}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <a href="#contacto" className="btn-primary focus-ring">Agenda tu inspección gratis</a>
+            <a href="#solar" className="btn-ghost focus-ring">Calcula tu ahorro solar</a>
           </div>
         </div>
 
-        {/* Tarjeta decorativa de servicios rápidos */}
-        <aside aria-label="Resumen de servicios" className="card hidden p-8 backdrop-blur lg:block">
-          <p className="text-sm text-[var(--color-muted)]">Atención inmediata</p>
-          <p className="h-display mt-2 text-3xl">Soporte técnico y mantenimiento</p>
-          <ul className="mt-6 space-y-3 text-[15px] text-white/85">
-            <li>• Reparación de computadoras y periféricos</li>
-            <li>• Redes y equipos de telecomunicaciones</li>
-            <li>• Alarmas contra robo e incendio</li>
-          </ul>
+        <aside aria-label="Contacto rápido" className="card hidden self-end p-8 backdrop-blur lg:block">
+          <p className="eyebrow">Paneles solares</p>
+          <p className="h-display mt-3 text-3xl">Hasta 25–30 años de energía propia</p>
+          <div className="my-6 h-px bg-white/10" />
+          <p className="eyebrow">Inspección técnica</p>
+          <p className="mt-3 text-[var(--color-muted)]">Vamos, medimos y te cotizamos sin costo.</p>
+          <a
+            href={whatsappLink("Hola IntegralTech, quiero agendar una inspección gratis.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focus-ring mt-6 inline-block font-semibold text-[#00c6ff] hover:underline"
+          >
+            Agenda por WhatsApp →
+          </a>
         </aside>
       </div>
     </section>

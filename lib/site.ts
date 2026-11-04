@@ -1,14 +1,13 @@
-// Datos de contacto centralizados. Cambiar aquí actualiza WhatsApp, chat y footer.
+// Datos del negocio, tomados de integraltech.com.ec. Cambiar aquí actualiza todo el sitio.
 export const SITE = {
-  name: "INTEGRALTECH",
+  name: "IntegralTech",
   legalName: "INTEGRALTECH S.A.S.",
-  city: "Guayaquil, Guayas, Ecuador",
-  // Formato internacional para wa.me: sin "+", sin espacios y sin el 0 inicial local.
+  cities: ["Guayaquil", "Samborondón", "Vía a la Costa", "Daule · La Aurora", "Durán"],
+  // Formato internacional para wa.me (sin + ni espacios ni 0 inicial).
   whatsappNumber: "593987730345",
-  whatsappDisplay: "+593 98 773 0345",
+  whatsappDisplay: "098 773 0345",
   email: "[CORREO]",
   address: "[DIRECCIÓN]",
-  social: "[REDES SOCIALES]",
   hours: "[HORARIO DE ATENCIÓN]",
   // URL de la Web App de Google Apps Script (termina en /exec). Ver INSTRUCCIONES.md.
   leadEndpoint: "PEGAR_URL_APPS_SCRIPT_AQUI",
