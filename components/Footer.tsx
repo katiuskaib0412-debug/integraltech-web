@@ -12,22 +12,25 @@ const nav = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#070b14] pt-20 pb-10">
-      <div className="container-wide grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+    // pb extra en móvil para que los botones flotantes (WhatsApp y chat) no tapen el contenido final
+    <footer className="relative border-t border-line bg-raised/70 pb-28 pt-16 backdrop-blur md:pb-10 md:pt-20">
+      <div className="container-wide grid gap-10 md:grid-cols-[1.4fr_1fr_1fr] md:gap-12">
         <div>
           <Logo />
-          <p className="mt-6 max-w-[360px] leading-relaxed text-[var(--color-muted)]">
+          <p className="mt-6 max-w-[360px] leading-relaxed text-soft">
             Seguridad, energía y redes instaladas por un solo equipo, en {SITE.cities.slice(0, 2).join(" y ")}.
           </p>
-          <p className="mt-4 text-sm text-[var(--color-muted)]">{SITE.legalName}</p>
+          <p className="mt-4 text-sm text-soft">{SITE.legalName}</p>
         </div>
 
         <nav aria-label="Enlaces del sitio">
           <h2 className="text-sm font-semibold uppercase tracking-[0.14em]">Navegación</h2>
-          <ul className="mt-5 space-y-3">
+          <ul className="mt-3 grid grid-cols-2 gap-x-6 md:grid-cols-1">
             {nav.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="focus-ring text-[var(--color-muted)] hover:text-white">{l.label}</a>
+                <a href={l.href} className="focus-ring tap text-soft hover:text-fg">
+                  {l.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -35,21 +38,26 @@ export default function Footer() {
 
         <div>
           <h2 className="text-sm font-semibold uppercase tracking-[0.14em]">Contacto</h2>
-          <ul className="mt-5 space-y-3 text-[var(--color-muted)]">
+          <ul className="mt-3 space-y-1 text-soft">
             <li>
-              <a className="focus-ring hover:text-white" href={whatsappLink("Hola IntegralTech, quiero información.")} target="_blank" rel="noopener noreferrer">
+              <a
+                className="focus-ring tap hover:text-fg"
+                href={whatsappLink("Hola IntegralTech, quiero información.")}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 WhatsApp {SITE.whatsappDisplay}
               </a>
             </li>
-            <li>{SITE.email}</li>
-            <li>{SITE.address}</li>
-            <li>{SITE.cities.join(" · ")}</li>
-            <li>{SITE.hours}</li>
+            <li className="py-1">{SITE.email}</li>
+            <li className="py-1">{SITE.address}</li>
+            <li className="py-1">{SITE.cities.join(" · ")}</li>
+            <li className="py-1">{SITE.hours}</li>
           </ul>
         </div>
       </div>
 
-      <div className="container-wide mt-16 border-t border-white/10 pt-8 text-sm text-[var(--color-muted)]">
+      <div className="container-wide mt-12 border-t border-line pt-8 text-sm text-soft">
         © {new Date().getFullYear()} {SITE.legalName}. Todos los derechos reservados.
       </div>
     </footer>

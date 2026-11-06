@@ -1,45 +1,126 @@
 @import "tailwindcss";
 
-/* Identidad: fondo oscuro, azul/cian del logo y acento violeta sutil. */
+/* Modo oscuro por clase: <html class="dark"> (la pone el script de app/layout.tsx antes de pintar). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* =========================================================================
+   TOKENS DE COLOR
+   :root = modo claro · .dark = modo oscuro
+   Los nombres --color-muted / --color-border / --color-accent se mantienen
+   porque los usan el formulario y el chat (archivos que no se modifican).
+   ========================================================================= */
 :root {
-  --color-bg: #05070d;
-  --color-surface: rgba(255, 255, 255, 0.04);
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-text: #ffffff;
-  --color-muted: rgba(226, 232, 240, 0.72);
+  --t-bg: #f5f7fb;
+  --t-bg-2: #ffffff;
+  --t-fg: #0b1b3a;
+  --t-muted: #4a5873;
+  --t-line: rgba(11, 27, 58, 0.12);
+  --t-link: #0a6fd6;
+  --t-grid: rgba(10, 111, 214, 0.06);
+
+  /* Degradado de marca (más profundo en claro para que se lea sobre blanco) */
+  --g1: #0a6fd6;
+  --g2: #0891b2;
+  --g3: #7c3aed;
+
+  --card-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 253, 0.88));
+  --card-border: linear-gradient(135deg, rgba(10, 132, 255, 0.35), rgba(124, 58, 237, 0.18) 45%, rgba(11, 27, 58, 0.06));
+  --card-shadow: 0 1px 2px rgba(11, 27, 58, 0.06), 0 14px 36px -14px rgba(11, 27, 58, 0.22);
+  --nav-bg: rgba(255, 255, 255, 0.72);
+  --folder-bg: linear-gradient(165deg, #ffffff, #f1f5fb);
+  --folder-shadow: 0 -8px 24px -18px rgba(11, 27, 58, 0.25), 0 24px 48px -24px rgba(11, 27, 58, 0.3);
+  --btn-shadow: 0 10px 24px -12px rgba(10, 111, 214, 0.55);
+  --btn-shadow-hover: 0 14px 30px -12px rgba(10, 111, 214, 0.7);
+
+  /* Alias heredados */
+  --color-bg: var(--t-bg);
+  --color-text: var(--t-fg);
+  --color-muted: var(--t-muted);
+  --color-border: var(--t-line);
   --color-accent: #0a84ff;
   --color-cyan: #00c6ff;
   --color-violet: #8b5cf6;
   --color-whatsapp: #25d366;
 
-  --glow-cyan: 0 0 40px rgba(0, 198, 255, 0.25);
-  --glow-violet: 0 0 60px rgba(139, 92, 246, 0.18);
   --radius-card: 22px;
   --radius-button: 12px;
   --section-y: 120px;
   --container: 1200px;
+  --nav-h: 72px;
+
+  color-scheme: light;
 }
 
+.dark {
+  --t-bg: #05070d;
+  --t-bg-2: #0a0f1a;
+  --t-fg: #ffffff;
+  --t-muted: #c3ccd9;
+  --t-line: rgba(255, 255, 255, 0.1);
+  --t-link: #00c6ff;
+  --t-grid: rgba(0, 198, 255, 0.05);
+
+  --g1: #0a84ff;
+  --g2: #00c6ff;
+  --g3: #8b5cf6;
+
+  --card-bg: linear-gradient(160deg, rgba(20, 28, 48, 0.72), rgba(8, 12, 24, 0.72));
+  --card-border: linear-gradient(135deg, rgba(0, 198, 255, 0.55), rgba(139, 92, 246, 0.35) 45%, rgba(255, 255, 255, 0.05));
+  --card-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 198, 255, 0.22);
+  --nav-bg: rgba(8, 12, 24, 0.55);
+  --folder-bg: linear-gradient(165deg, #111c33, #0a1020);
+  --folder-shadow: 0 -10px 30px -18px rgba(0, 0, 0, 0.8), 0 0 40px -10px rgba(0, 198, 255, 0.25);
+  --btn-shadow: 0 10px 30px -10px rgba(0, 198, 255, 0.6);
+  --btn-shadow-hover: 0 14px 40px -8px rgba(0, 198, 255, 0.75);
+
+  color-scheme: dark;
+}
+
+/* Utilidades de Tailwind basadas en tokens: bg-canvas, text-fg, text-soft, border-line, text-link… */
 @theme inline {
   --font-display: var(--font-space), sans-serif;
   --font-body: var(--font-inter), sans-serif;
+  --color-canvas: var(--t-bg);
+  --color-raised: var(--t-bg-2);
+  --color-fg: var(--t-fg);
+  --color-soft: var(--t-muted);
+  --color-line: var(--t-line);
+  --color-link: var(--t-link);
+}
+
+/* Transición suave de 300 ms solo mientras se cambia de tema */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    fill 0.3s ease,
+    stroke 0.3s ease !important;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 110px;
+  overflow-x: clip;
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--t-bg);
+  color: var(--t-fg);
   font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
+@layer components {
 .container-wide {
-  width: min(100% - 48px, var(--container));
+  width: min(100% - 40px, var(--container));
   margin-inline: auto;
 }
 
@@ -56,13 +137,13 @@ body {
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-cyan);
+  color: var(--t-link);
 }
 .eyebrow::before {
   content: "";
   width: 28px;
   height: 1px;
-  background: linear-gradient(90deg, var(--color-cyan), transparent);
+  background: linear-gradient(90deg, var(--t-link), transparent);
 }
 
 .h-display {
@@ -70,18 +151,23 @@ body {
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.05;
+  text-wrap: balance;
+}
+
+/* Títulos de sección fluidos (no se cortan en 360 px) */
+.title-section {
+  font-size: clamp(2rem, 5.2vw + 0.6rem, 3.5rem);
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, var(--color-accent), var(--color-cyan), var(--color-violet));
+  background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Titular con degradado animado */
 .text-gradient-animated {
-  background: linear-gradient(90deg, #0a84ff, #00c6ff, #8b5cf6, #00c6ff, #0a84ff);
+  background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3), var(--g2), var(--g1));
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -104,17 +190,18 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-cyan));
+  min-height: 48px;
+  background: linear-gradient(90deg, var(--g1), var(--g2));
   color: #fff;
   border-radius: var(--radius-button);
-  padding: 16px 24px;
+  padding: 14px 24px;
   font-weight: 600;
-  box-shadow: 0 10px 30px -10px rgba(0, 198, 255, 0.6);
+  box-shadow: var(--btn-shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
 }
 .btn-primary:hover {
   filter: brightness(1.08);
-  box-shadow: 0 14px 40px -8px rgba(0, 198, 255, 0.75);
+  box-shadow: var(--btn-shadow-hover);
   transform: translateY(-2px);
 }
 .btn-primary:active {
@@ -125,62 +212,124 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 48px;
   border-radius: var(--radius-button);
-  padding: 16px 24px;
+  padding: 14px 24px;
   font-weight: 600;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--t-fg);
+  background: color-mix(in oklab, var(--t-fg) 5%, transparent);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid color-mix(in oklab, var(--t-fg) 20%, transparent);
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(0, 198, 255, 0.6);
+  background: color-mix(in oklab, var(--t-fg) 10%, transparent);
+  border-color: var(--t-link);
 }
 
-/* Glassmorphism con borde degradado y brillo cian/violeta */
+/* Glassmorphism con borde degradado: brillo neón en oscuro, sombra suave en claro */
 .card {
   position: relative;
-  background:
-    linear-gradient(160deg, rgba(20, 28, 48, 0.72), rgba(8, 12, 24, 0.72)) padding-box,
-    linear-gradient(135deg, rgba(0, 198, 255, 0.55), rgba(139, 92, 246, 0.35) 45%, rgba(255, 255, 255, 0.05)) border-box;
+  background: var(--card-bg) padding-box, var(--card-border) border-box;
   border: 1px solid transparent;
   border-radius: var(--radius-card);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
-  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6), var(--glow-cyan);
+  box-shadow: var(--card-shadow);
+}
+
+/* Tarjeta opaca para el apilado tipo carpeta (la de vidrio dejaría ver las de atrás) */
+.card-folder {
+  position: relative;
+  background: var(--folder-bg) padding-box, var(--card-border) border-box;
+  border: 1px solid transparent;
+  border-radius: 28px;
+  box-shadow: var(--folder-shadow);
 }
 
 .glass-nav {
-  background: rgba(8, 12, 24, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--nav-bg);
+  border: 1px solid var(--t-line);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 40px -14px rgba(0, 0, 0, 0.35);
 }
 
 .focus-ring:focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 2px solid var(--t-link);
   outline-offset: 3px;
 }
 
-/* Fondo de cuadrícula de circuitos (capa decorativa) */
 .circuit-grid {
   background-image:
-    linear-gradient(rgba(0, 198, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 198, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(var(--t-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--t-grid) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
 }
 
+/* Área táctil mínima de 44 px para enlaces sueltos */
+.tap {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+} /* fin @layer components */
+
+/* =========================================================================
+   FORMULARIO Y CHAT (sin tocar sus archivos): legibles en ambos modos y
+   cómodos en móvil. Se adaptan desde aquí con selectores acotados.
+   ========================================================================= */
+#contacto input,
+#contacto select,
+#contacto textarea {
+  font-size: 16px; /* evita el zoom automático de iOS */
+  min-height: 48px;
+}
+#contacto fieldset label span {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+#contacto form button[type="submit"] {
+  width: 100%;
+  min-height: 52px;
+}
+#chat-panel input {
+  font-size: 16px;
+}
+/* Panel del chat opaco: el vidrio dejaba ver el contenido de atrás */
+#chat-panel.card {
+  background: var(--folder-bg) padding-box, var(--card-border) border-box;
+}
+
+html:not(.dark) #contacto [class*="bg-[#0a0f1a]"],
+html:not(.dark) #chat-panel [class*="bg-[#0a0f1a]"] {
+  background-color: #ffffff;
+  color: var(--t-fg);
+}
+html:not(.dark) #contacto [class*="placeholder:text-white"]::placeholder,
+html:not(.dark) #chat-panel [class*="placeholder:text-white"]::placeholder {
+  color: rgba(11, 27, 58, 0.45);
+}
+html:not(.dark) #contacto [class*="border-white/20"] {
+  border-color: rgba(11, 27, 58, 0.22);
+}
+html:not(.dark) #chat-panel [class*="bg-white/[0.07]"] {
+  background-color: rgba(11, 27, 58, 0.06);
+  color: var(--t-fg);
+}
+html:not(.dark) #chat-panel button[class*="rounded-full"] {
+  color: var(--t-fg);
+}
+html:not(.dark) #chat-panel [class*="hover:bg-white/10"]:hover {
+  background-color: rgba(11, 27, 58, 0.06);
+}
+
 @media (max-width: 767px) {
   :root {
-    --section-y: 84px;
-  }
-  .card {
-    box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.6);
+    --section-y: 80px;
   }
 }
 

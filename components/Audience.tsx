@@ -51,15 +51,15 @@ export default function Audience() {
           fill
           sizes="100vw"
           loading="lazy"
-          className="object-cover opacity-30"
+          className="object-cover opacity-15 dark:opacity-30"
         />
       </motion.div>
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#05070d] via-transparent to-[#05070d]" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-canvas via-canvas/40 to-canvas" />
 
       <div className="container-wide">
         <Reveal>
           <p className="eyebrow">Para quién trabajamos</p>
-          <h2 id="audience-title" className="h-display mt-4 max-w-[780px] text-4xl md:text-[56px]">
+          <h2 id="audience-title" className="h-display title-section mt-4 max-w-[780px]">
             Necesidades grandes y pequeñas, resueltas con el mismo estándar
           </h2>
           <p className="mt-6 max-w-[680px] text-lg leading-relaxed text-[var(--color-muted)]">
@@ -76,8 +76,8 @@ export default function Audience() {
                   <p className="mt-2 text-[var(--color-muted)]">{g.subtitle}</p>
                   <ul className="mt-6 space-y-3">
                     {g.items.map((item) => (
-                      <li key={item} className="flex gap-3 text-[15px] text-white/85">
-                        <span aria-hidden="true" className="mt-1 text-[#00c6ff]">✓</span>
+                      <li key={item} className="flex gap-3 text-[15px] text-fg/85">
+                        <span aria-hidden="true" className="mt-1 text-link">✓</span>
                         {item}
                       </li>
                     ))}
@@ -86,7 +86,7 @@ export default function Audience() {
                     href={whatsappLink(`Hola IntegralTech, quiero una inspección para ${g.title.toLowerCase()}.`)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="focus-ring mt-auto inline-block self-start pt-8 font-semibold text-[#00c6ff] hover:underline"
+                    className="focus-ring mt-auto inline-block self-start pt-8 font-semibold text-link hover:underline"
                   >
                     {g.title === "Hogares" ? "Inspección gratis para mi casa →" : "Solicitar propuesta →"}
                   </a>

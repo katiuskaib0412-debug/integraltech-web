@@ -53,7 +53,7 @@ export default function Stats() {
             </Reveal>
           ))}
         </div>
-        <p className="mt-4 text-center text-xs text-white/40">[EJEMPLO – reemplazar con cifras reales]</p>
+        <p className="mt-4 text-center text-xs text-soft">[EJEMPLO – reemplazar con cifras reales]</p>
       </div>
     </section>
   );

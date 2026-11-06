@@ -58,10 +58,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05070d",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f7fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#05070d" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
+
+// Se ejecuta antes de pintar: aplica el tema guardado o el del sistema (sin parpadeo).
+const themeScript = `(function(){try{var s=localStorage.getItem('theme');var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;var r=document.documentElement;r.classList.toggle('dark',d);r.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
 
 // Datos estructurados (SEO local) para buscadores.
 const jsonLd = {
@@ -90,7 +96,10 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-EC" className={`${space.variable} ${inter.variable}`}>
+    <html lang="es-EC" className={`${space.variable} ${inter.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <script
           type="application/ld+json"

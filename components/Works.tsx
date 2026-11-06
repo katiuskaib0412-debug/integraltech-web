@@ -40,7 +40,7 @@ export default function Works() {
       <div className="container-wide">
         <Reveal>
           <p className="eyebrow">Trabajos</p>
-          <h2 id="works-title" className="h-display mt-4 max-w-[780px] text-4xl md:text-[56px]">
+          <h2 id="works-title" className="h-display title-section mt-4 max-w-[780px]">
             Instalaciones limpias, ordenadas y probadas
           </h2>
           <p className="mt-6 max-w-[680px] text-lg leading-relaxed text-[var(--color-muted)]">
@@ -98,7 +98,7 @@ export default function Works() {
                   type="button"
                   onClick={() => setActive((i) => ((i ?? 0) - 1 + works.length) % works.length)}
                   aria-label="Anterior"
-                  className="focus-ring rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10"
+                  className="focus-ring min-h-11 min-w-11 rounded-xl border border-line px-4 py-2 hover:bg-fg/10"
                 >
                   ←
                 </button>
@@ -106,7 +106,7 @@ export default function Works() {
                   type="button"
                   onClick={() => setActive((i) => ((i ?? 0) + 1) % works.length)}
                   aria-label="Siguiente"
-                  className="focus-ring rounded-xl border border-white/15 px-4 py-2 hover:bg-white/10"
+                  className="focus-ring min-h-11 min-w-11 rounded-xl border border-line px-4 py-2 hover:bg-fg/10"
                 >
                   →
                 </button>

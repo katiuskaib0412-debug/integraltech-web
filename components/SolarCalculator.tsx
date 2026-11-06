@@ -45,7 +45,7 @@ export default function SolarCalculator() {
       <div className="container-wide grid items-start gap-16 lg:grid-cols-2">
         <div>
           <p className="eyebrow">Calculadora de ahorro solar · Guayaquil</p>
-          <h2 id="solar-title" className="h-display mt-4 text-4xl md:text-[52px]">
+          <h2 id="solar-title" className="h-display title-section mt-4">
             ¿Cuánto puedes ahorrar con paneles solares?
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-[var(--color-muted)]">
@@ -68,13 +68,13 @@ export default function SolarCalculator() {
               onChange={(e) => setBill(Number(e.target.value))}
               className="mt-6 w-full accent-[#0a84ff]"
             />
-            <div className="mt-2 flex justify-between text-xs text-[var(--color-muted)]">
+            <div className="mt-2 flex justify-between text-sm text-[var(--color-muted)]">
               {STEPS.map((s) => (
                 <button
                   key={s}
                   type="button"
                   onClick={() => setBill(s)}
-                  className="focus-ring rounded px-1 hover:text-white"
+                  className="focus-ring tap justify-center rounded px-1 hover:text-fg"
                 >
                   {usd(s)}
                 </button>
@@ -96,7 +96,7 @@ export default function SolarCalculator() {
             <p className="eyebrow">Inversión estimada</p>
             <p className="h-display mt-3 text-3xl">{usd(r.invMin)} – {usd(r.invMax)}</p>
             <p className="mt-1 text-sm text-[var(--color-muted)]">Equipos e instalación</p>
-            <div className="my-6 h-px bg-white/10" />
+            <div className="my-6 h-px bg-line" />
             <p className="eyebrow">Recuperas la inversión en</p>
             <p className="h-display mt-3 text-3xl">
               {Math.floor(r.payMin)} – {Math.ceil(r.payMax)} años
@@ -138,7 +138,7 @@ function Stat({ label, value, sub }: { label: string; value: string; sub: string
 function Mini({ big, text }: { big: string; text: string }) {
   return (
     <div className="card p-6">
-      <p className="font-semibold text-[#00c6ff]">{big}</p>
+      <p className="font-semibold text-link">{big}</p>
       <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{text}</p>
     </div>
   );

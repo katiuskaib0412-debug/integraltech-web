@@ -46,6 +46,11 @@ export default function Background() {
     };
 
     const draw = () => {
+      // Colores según el tema activo: cian brillante en oscuro, azul suave en claro
+      const dark = document.documentElement.classList.contains("dark");
+      const rgb = dark ? "0, 198, 255" : "10, 111, 214";
+      const lineAlpha = dark ? 0.16 : 0.1;
+      const dotAlpha = dark ? 0.6 : 0.35;
       ctx.clearRect(0, 0, w, h);
       for (const n of nodes) {
         n.x += n.vx;
@@ -59,7 +64,7 @@ export default function Background() {
           const b = nodes[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < LINK) {
-            ctx.strokeStyle = `rgba(0, 198, 255, ${0.16 * (1 - d / LINK)})`;
+            ctx.strokeStyle = `rgba(${rgb}, ${lineAlpha * (1 - d / LINK)})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -69,7 +74,7 @@ export default function Background() {
         }
       }
       for (const n of nodes) {
-        ctx.fillStyle = "rgba(0, 198, 255, 0.6)";
+        ctx.fillStyle = `rgba(${rgb}, ${dotAlpha})`;
         ctx.beginPath();
         ctx.arc(n.x, n.y, 1.6, 0, Math.PI * 2);
         ctx.fill();
@@ -92,19 +97,25 @@ export default function Background() {
     } else {
       raf = requestAnimationFrame(loop);
     }
+    // Con movimiento reducido, redibuja el fotograma estático al cambiar de tema
+    const onTheme = () => {
+      if (reduce) draw();
+    };
     window.addEventListener("resize", resize);
+    window.addEventListener("themechange", onTheme);
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("themechange", onTheme);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(10,132,255,0.18),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(139,92,246,0.12),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(10,132,255,0.18),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(139,92,246,0.12),transparent_50%)] opacity-50 dark:opacity-100" />
       <div className="circuit-grid absolute inset-0 opacity-70" />
       <canvas ref={ref} className="absolute inset-0 opacity-80" />
     </div>

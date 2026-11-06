@@ -12,14 +12,14 @@ export default function Contact() {
         fill
         loading="lazy"
         sizes="100vw"
-        className="-z-10 object-cover opacity-25"
+        className="-z-10 object-cover opacity-15 dark:opacity-25"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-[#05070d] via-[#05070d]/70 to-[#05070d]" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-canvas via-canvas/75 to-canvas" />
 
       <div className="container-wide grid gap-16 lg:grid-cols-[1fr_1.1fr]">
         <Reveal variant="left">
           <p className="eyebrow">Cobertura y contacto</p>
-          <h2 id="contact-title" className="h-display mt-4 text-4xl md:text-[56px]">
+          <h2 id="contact-title" className="h-display title-section mt-4">
             Agenda tu inspección gratis en Guayaquil y alrededores
           </h2>
           <p className="mt-6 max-w-[520px] text-lg leading-relaxed text-[var(--color-muted)]">
@@ -28,7 +28,7 @@ export default function Contact() {
 
           <ul className="mt-8 flex flex-wrap gap-2">
             {SITE.cities.map((c) => (
-              <li key={c} className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm text-white/85 backdrop-blur">
+              <li key={c} className="rounded-full border border-line bg-fg/[0.04] px-4 py-2 text-[15px] text-fg/85 backdrop-blur">
                 {c}
               </li>
             ))}
@@ -36,7 +36,7 @@ export default function Contact() {
 
           <div className="card mt-10 p-8">
             <p className="eyebrow">Teléfono / WhatsApp</p>
-            <a href={`tel:+${SITE.whatsappNumber}`} className="focus-ring h-display mt-3 block text-4xl hover:text-[#00c6ff]">
+            <a href={`tel:+${SITE.whatsappNumber}`} className="focus-ring h-display mt-3 flex min-h-11 items-center text-[clamp(1.9rem,7vw,2.25rem)] hover:text-link">
               {SITE.whatsappDisplay}
             </a>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -44,7 +44,7 @@ export default function Contact() {
                 href={whatsappLink("Hola IntegralTech, quiero agendar una inspección gratis.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary focus-ring"
+                className="btn-primary focus-ring w-full sm:w-auto"
               >
                 Escribir por WhatsApp
               </a>
