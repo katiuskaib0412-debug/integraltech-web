@@ -1,18 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import Providers from "@/components/Providers";
 import Background from "@/components/Background";
 import "./globals.css";
 
-const space = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["500", "700"],
+// Fuentes alojadas en el proyecto (app/fonts, licencia SIL OFL).
+// Antes se descargaban de Google Fonts en cada build y eso hizo fallar un deploy en Netlify.
+const space = localFont({
+  src: "./fonts/SpaceGrotesk-latin.woff2",
+  weight: "300 700",
   variable: "--font-space",
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "./fonts/Inter-latin.woff2",
+  weight: "100 900",
   variable: "--font-inter",
   display: "swap",
 });
